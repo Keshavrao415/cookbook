@@ -1,1 +1,13 @@
 https://liveaverage.com/blog/ansible-tower-and-servicenow-integration-in-10-minutes/
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    ip_template: test
+  tasks:
+    # construct list
+    - set_fact:
+        ip_list: "{{ (ip_list | default([])) + [ip_template] }}"
+      with_sequence: "start=1 count=5"
+    - debug:
+        msg: "{{ ip_list }}"
